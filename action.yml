@@ -9,7 +9,7 @@ inputs:
   debug:
     description: 'Test your Code Coverage' 
     required: false
-    default: latest
+    default: false
     
 branding:
   icon: 'code'
