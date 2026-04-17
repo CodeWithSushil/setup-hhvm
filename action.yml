@@ -1,6 +1,6 @@
-name: 'Setup Hacklang'
+name: 'Setup HHVM/Hacklang'
 description: 'Install HHVM and set up the Hack programming language environment'
-author: 'Your Name'
+author: 'Sushil Kumar'
 inputs:
   hack-version:
     description: 'The version of HHVM/Hack to install'
@@ -17,18 +17,10 @@ runs:
       run: |
         sudo apt-get update
         sudo apt-get install -y software-properties-common apt-transport-https
+      apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xB4112585D386EB94
         sudo apt-add-repository https://dl.hhvm.com/ubuntu
         sudo apt-get update
         sudo apt-get install -y hhvm
+        sudo apt-get install -y hhvm-dbg
       shell: bash
-      
 
-
-
-apt-get update
-apt-get install software-properties-common apt-transport-https
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xB4112585D386EB94
-
-add-apt-repository https://dl.hhvm.com/ubuntu
-apt-get update
-apt-get install hhvm
