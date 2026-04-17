@@ -1,11 +1,16 @@
-name: setup-Hacklang
-description: Install HHVM and set up the Hack programming language environment
-author: Sushil Kumar
+name: setup-hacklang
+description: 'Install HHVM and set up the Hack programming language environment'
+author: sushil
 inputs:
   hack-version:
-    description: The version of HHVM/Hack to install
+    description: 'The version of HHVM/Hack to install'
+    required: true
+    default: latest
+  debug:
+    description: 'Test your Code Coverage' 
     required: false
     default: latest
+    
 branding:
   icon: 'code'
   color: purple
