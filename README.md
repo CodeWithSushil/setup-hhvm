@@ -8,10 +8,10 @@ steps:
   - name: Checkout code
     uses: actions/checkout@v4
 
-  - name: Setup Hack
-    uses: your-username/setup-hacklang@v1
+  - name: setup-Hacklang
+    uses: CodeWithSushil/setup-hhvm@v1.0.0
     with:
-      hack-version: '4.153'
+      hack-version: latest
 
   - name: Typecheck
     run: hh_client
