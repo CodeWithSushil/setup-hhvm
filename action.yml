@@ -2,13 +2,9 @@ name: setup-hacklang
 description: Install HHVM and set up the Hack programming language environment
 author: sushil
 inputs:
-  hack-version:
+  hhvm-version:
     description: The version of HHVM/Hack to install
-    required: true
-    default: latest
-  debug:
-    description: Code Debugging
-    required: false
+    required: false 
     default: false
     
 branding:
@@ -21,8 +17,14 @@ runs:
     - shell: bash
       run: ${{ github.action_path }}/scripts/composer.sh
 
-    - shell: bash
+    - name: Install HHVM & Hack
+      shell: bash
       run: |
         sudo apt-get update
-        dpkg --print-architecture
-        sudo apt search hacklang
+        sudo apt-get install -y software-properties-common apt-transport-https curl gnupg
+        sudo mkdir -p /usr/share/keyrings 
+        curl -fsSL https://dl.hhvm.com/conf/hhvm.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/hhvm-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hhvm-archive-keyring.gpg] https://dl.hhvm.com/ubuntu $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/hhvm.list > /dev/null 
+        sudo apt-get update
+        sudo apt-get install -y hhvm
+        sudo update-rc.d hhvm defaults

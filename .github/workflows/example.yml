@@ -2,8 +2,9 @@ on: [push]
 
 jobs:
   example:
-    runs-on: ubuntu-22.04
-
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
 
     steps:
       - name: Checkout
