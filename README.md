@@ -1,6 +1,24 @@
-## Setup HHVM/Hack
+## Setup HHVM / Hack Environment 
 
-Install HHVM and running your Hack code. Makesure `Ubuntu version 22.04` or `20.04` version supported only not support on `ubuntu-latest` (24.04) version.
+This setup installs HHVM and enables execution of Hack language code in a controlled environment.
+>Compatibility Notice
+>HHVM currently supports only specific Ubuntu LTS versions. Ensure your environment uses one of the following:
+
+* Ubuntu 22.04 (Jammy)
+* Ubuntu 20.04 (Focal)
+
+The ubuntu-latest runner (currently 24.04) is **not supported** and will lead to installation or runtime issues.
+
+### Recommended Approach
+
+For consistency and reliability—especially in CI/CD pipelines—use a **Docker container** based on Ubuntu 20.04. This guarantees compatibility with HHVM and avoids dependency conflicts introduced in newer distributions.
+**It is recommended to create a Docker image using Ubuntu 20.04 as the base for running HHVM/Hack.**
+
+### Key Points
+
+* Avoid using ubuntu-latest in GitHub Actions for HHVM workflows.
+* Prefer explicit OS versioning (ubuntu-22.04 or ubuntu-20.04).
+* Use Docker when portability and reproducibility are required.
 
 ---
 
