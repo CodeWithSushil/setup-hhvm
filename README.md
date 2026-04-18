@@ -1,8 +1,8 @@
 ## Setup HHVM / Hack Environment 
 
 This setup installs HHVM and enables execution of Hack language code in a controlled environment.
->Compatibility Notice
->HHVM currently supports only specific Ubuntu LTS versions. Ensure your environment uses one of the following:
+> **Compatibility Notice** <br>
+> HHVM currently supports only specific Ubuntu LTS versions. Ensure your environment uses one of the following:
 
 * Ubuntu 22.04 (Jammy)
 * Ubuntu 20.04 (Focal)
