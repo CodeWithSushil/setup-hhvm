@@ -1,6 +1,6 @@
 name: setup-hacklang
 description: Install HHVM and set up the Hack programming language environment
-author: 'sushil kumar'
+author: CodeWithSushil
 inputs:
   hhvm-version:
     description: The version of HHVM/Hack to install
@@ -14,32 +14,22 @@ branding:
 runs:
   using: composite
   steps:
-    - shell: bash
-      run: ${{ github.action_path }}/scripts/composer.sh
-
-    - name: Install HHVM & Hack
-      shell: bash
+    - name: Install HHVM
       run: |
-        set -e
+        set -euxo pipefail
 
         sudo apt-get update
-        sudo apt-get install -y software-properties-common apt-transport-https curl gnupg
+        sudo apt-get install -y curl gnupg lsb-release ca-certificates composer php
 
         sudo mkdir -p /usr/share/keyrings
 
-        curl -fsSL https://dl.hhvm.com/conf/hhvm.gpg.key \
-          | sudo gpg --dearmor -o /usr/share/keyrings/hhvm-archive-keyring.gpg
+        curl -fsSL https://dl.hhvm.com/conf/hhvm.gpg.key | \
+        gpg --dearmor | sudo tee /usr/share/keyrings/hhvm.gpg > /dev/null
 
-        # 🔥 Force focal instead of jammy
-        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/hhvm-archive-keyring.gpg] https://dl.hhvm.com/ubuntu focal main" \
-          | sudo tee /etc/apt/sources.list.d/hhvm.list > /dev/null
-
+        DISTRO=$(lsb_release -cs)
+        echo "deb [signed-by=/usr/share/keyrings/hhvm.gpg] https://dl.hhvm.com/ubuntu ${DISTRO} main" | \
+        sudo tee /etc/apt/sources.list.d/hhvm.list
         sudo apt-get update
-
-        # ⚠️ Install with fallback fix
-        sudo apt-get install -y hhvm || true
-
-        # Fix broken deps (libssl1.1 etc.)
-        sudo apt-get install -f -y
+        sudo apt-get install -y hhvm
 
         hhvm --version
