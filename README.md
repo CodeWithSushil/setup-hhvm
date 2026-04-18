@@ -11,7 +11,7 @@ The ubuntu-latest runner (currently 24.04) is **not supported** and will lead to
 
 ### Recommended Approach
 
-For consistency and reliability—especially in CI/CD pipelines—use a **Docker container** based on Ubuntu 20.04. This guarantees compatibility with HHVM and avoids dependency conflicts introduced in newer distributions.
+For consistency and reliability—especially in CI/CD pipelines—use a **Docker container** based on Ubuntu 20.04. This guarantees compatibility with HHVM and avoids dependency conflicts introduced in newer distributions. <br>
 **It is recommended to create a Docker image using Ubuntu 20.04 as the base for running HHVM/Hack.**
 
 ### Key Points
