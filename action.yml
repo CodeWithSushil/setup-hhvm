@@ -1,35 +1,86 @@
 name: setup-hacklang
 description: Install HHVM and set up the Hack programming language environment
 author: CodeWithSushil
+
 inputs:
   hhvm-version:
     description: The version of HHVM/Hack to install
-    required: true
+    required: false
     default: latest
 
 branding:
-  icon: 'code'
+  icon: code
   color: purple
 
 runs:
   using: composite
   steps:
-    - name: Install HHVM
+    - name: Install HHVM / Hack
+      shell: bash
       run: |
         set -euxo pipefail
 
         sudo apt-get update
-        sudo apt-get install -y curl gnupg lsb-release ca-certificates composer php
+        sudo apt-get install -y \
+          curl \
+          gnupg \
+          ca-certificates \
+          lsb-release
 
         sudo mkdir -p /usr/share/keyrings
 
+        # Add HHVM GPG key
         curl -fsSL https://dl.hhvm.com/conf/hhvm.gpg.key | \
-        gpg --dearmor | sudo tee /usr/share/keyrings/hhvm.gpg > /dev/null
+          gpg --dearmor | \
+          sudo tee /usr/share/keyrings/hhvm.gpg > /dev/null
 
-        DISTRO=$(lsb_release -cs)
+        # Detect distro
+        if command -v lsb_release >/dev/null 2>&1; then
+          DISTRO=$(lsb_release -cs)
+        else
+          DISTRO=$(grep VERSION_CODENAME /etc/os-release | cut -d= -f2)
+        fi
+
+        echo "Detected distro: $DISTRO"
+
+        # Add HHVM repo
         echo "deb [signed-by=/usr/share/keyrings/hhvm.gpg] https://dl.hhvm.com/ubuntu ${DISTRO} main" | \
-        sudo tee /etc/apt/sources.list.d/hhvm.list
-        sudo apt-get update
-        sudo apt-get install -y hhvm
+          sudo tee /etc/apt/sources.list.d/hhvm.list
 
+        sudo apt-get update
+
+        INSTALL_SUCCESS=false
+
+        echo "➡️ Trying to install HHVM (stable)..."
+        if [ "${{ inputs.hhvm-version }}" = "latest" ]; then
+          if sudo apt-get install -y hhvm; then
+            INSTALL_SUCCESS=true
+          fi
+        else
+          if sudo apt-get install -y hhvm=${{ inputs.hhvm-version }}; then
+            INSTALL_SUCCESS=true
+          fi
+        fi
+
+        # Fallback to nightly
+        if [ "$INSTALL_SUCCESS" = false ]; then
+          echo "⚠️ Stable HHVM install failed. Trying hhvm-nightly..."
+
+          sudo apt-get update
+          if sudo apt-get install -y hhvm-nightly; then
+            INSTALL_SUCCESS=true
+          fi
+        fi
+
+        # Final failure check
+        if [ "$INSTALL_SUCCESS" = false ]; then
+          echo "❌ Both hhvm and hhvm-nightly installation failed"
+          exit 1
+        fi
+
+        # Verify installation
         hhvm --version
+
+        # Runtime test
+        echo '<?hh echo "Hack runtime OK\n";' > test.hack
+        hhvm test.hack
