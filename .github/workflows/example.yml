@@ -7,11 +7,10 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@5
 
-      - name: install hhvm
-        uses: CodeWithSushil/setup-hhvm@v1.2.3
-
+      - name: setup-hacklang
+        uses: CodeWithSushil/setup-hhvm@1.2.3 
       - name: Inspect
         run: |
           php --version
