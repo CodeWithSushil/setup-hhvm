@@ -14,8 +14,7 @@ branding:
 runs:
   using: composite
   steps:
-    - name: Install HHVM & Hack
-      shell: bash
+    - shell: bash
       run: |
         sudo apt-get update
         sudo apt-get install -y software-properties-common apt-transport-https curl gnupg
