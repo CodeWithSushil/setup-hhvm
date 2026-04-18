@@ -15,6 +15,9 @@ branding:
 runs:
   using: composite
   steps:
+    - shell: bash
+      run: ${{ github.action_path }}/scripts/composer.sh
+
     - name: Install HHVM / Hack
       shell: bash
       run: |
