@@ -1,0 +1,22 @@
+on: [push]
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+
+      - name: install hhvm
+        uses: CodeWithSushil/setup-hhvm@v1.1.0
+
+      - name: Inspect
+        run: |
+          php --version
+          composer --version
+          hhvm --version
+          hh_client --version
+
+      - name: Running hack script
+        run: hhvm examples/index.hack
