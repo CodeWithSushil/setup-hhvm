@@ -10,16 +10,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: setup-hacklang
-<<<<<<< HEAD
-        uses: CodeWithSushil/setup-hhvm@v2.2 
-      - name: Inspect
-        run: |
-          hhvm --version
-          hh_client --version
-=======
-        uses: CodeWithSushil/setup-hhvm@v2.1
->>>>>>> eaff94d (v2 nightly support sudo)
+      - name: setup hacklang
+        uses: CodeWithSushil/setup-hhvm@v2.2
 
       - name: Running hack script
         run: hhvm examples/index.hack
