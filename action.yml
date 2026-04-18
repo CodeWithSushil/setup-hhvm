@@ -24,10 +24,6 @@ runs:
     - shell: bash
       run: |
         sudo apt-get update
-        sudo apt-get install -y software-properties-common apt-transport-https curl gnupg
-        sudo mkdir -p /usr/share/keyrings
-        curl -fsSL http://dl.hhvm.com/conf/hhvm.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/hhvm-archive-keyring.gpg
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hhvm-archive-keyring.gpg] https://dl.hhvm.com/ubuntu $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/hhvm.list > /dev/null
-        sudo apt-get update
-        sudo apt-get install -y hhvm hhvm-dbg
-        sudo update-rc.d hhvm defaults
+        dpkg --print-architecture
+        apt-cache policy hhvm
+        cat /etc/apt/sources.list.d/*hhvm*
