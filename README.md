@@ -34,13 +34,13 @@ steps:
   - name: Checkout code
     uses: actions/checkout@v5
 
-  - name: setup-Hacklang
-    uses: CodeWithSushil/setup-hhvm@v1.0.0
+  - name: Setup HHVM/Hacklang
+    uses: CodeWithSushil/setup-hhvm@v2.2
     with:
       hack-version: latest
 
-  - name: Typecheck
-    run: hh_client
+  - name: Run Hack code
+    run: hhvm index.php
 ```
 
 ---
