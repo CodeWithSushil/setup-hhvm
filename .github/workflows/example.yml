@@ -11,13 +11,11 @@ jobs:
         uses: actions/checkout@v5
 
       - name: setup-hacklang
-        uses: CodeWithSushil/setup-hhvm@v2 
+        uses: CodeWithSushil/setup-hhvm@v2.1 
       - name: Inspect
         run: |
           hhvm --version
           hh_client --version
-          php --version
-          composer --version
 
       - name: Running hack script
         run: hhvm examples/index.hack
