@@ -6,8 +6,8 @@ jobs:
 
 
     steps:
-      - name: checkout
-        uses: actions/checkout@5
+      - name: Checkout
+        uses: actions/checkout@v5
 
       - name: setup-hacklang
         uses: CodeWithSushil/setup-hhvm@1.2.3 
