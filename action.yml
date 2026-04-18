@@ -25,5 +25,5 @@ runs:
       run: |
         sudo apt-get update
         dpkg --print-architecture
-        apt-cache policy hhvm
-        cat /etc/apt/sources.list.d/*hhvm*
+        sudo apt-cache policy hhvm
+        sudo apt search hhvm
