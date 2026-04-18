@@ -8,7 +8,7 @@ Install HHVM and running your Hack code. Makesure `Ubuntu version 22.04` or `20.
 
 ```yml
 
-runs-on: ubuntu-22.04
+runs-on: ubuntu-latest
 container:
   image: ubuntu:20.04
 
