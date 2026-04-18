@@ -25,5 +25,4 @@ runs:
       run: |
         sudo apt-get update
         dpkg --print-architecture
-        sudo apt-cache policy hhvm
-        sudo apt search hhvm
+        sudo apt search hacklang
