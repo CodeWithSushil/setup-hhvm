@@ -4,8 +4,8 @@ author: sushil
 inputs:
   hhvm-version:
     description: The version of HHVM/Hack to install
-    required: false 
-    default: false
+    required: true
+    default: latest
     
 branding:
   icon: 'code'
